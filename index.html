@@ -6,59 +6,68 @@
     <title>Wenbin Luo - Mathematical Research</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        .home-container {
-            max-width: 1200px;
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
+            line-height: 1.6;
         }
-        .profile-section {
-            text-align: center;
-            margin: 2em 0;
+        .publication {
+            margin-bottom: 1.5em;
+            padding-left: 2em;
+            text-indent: -2em;
         }
-        .profile-pic {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin: 20px auto;
-        }
-        .research-interests {
-            max-width: 800px;
-            margin: 2em auto;
-            text-align: left;
-            padding: 20px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-        }
-        .research-interests h2 {
+        .section-header {
+            font-size: 1.8em;
             color: #2c3e50;
-            border-bottom: 2px solid #3498db;
+            margin: 1.5em 0 1em 0;
+            border-bottom: 3px solid #3498db;
             padding-bottom: 0.5em;
+        }
+        .year-section {
+            margin-top: 1.5em;
+        }
+        .year-header {
+            font-size: 1.3em;
+            color: #34495e;
             margin-bottom: 1em;
+            border-bottom: 1px solid #bdc3c7;
+            padding-bottom: 0.3em;
         }
-        .advisor-info {
-            margin: 1em 0;
-        }
-        .advisor-name {
+        .title {
             font-weight: bold;
+        }
+        .journal {
+            font-style: italic;
+        }
+        .author {
             color: #2c3e50;
         }
-        .news-section {
-            margin: 2em 0;
-        }
-        .news-list {
-            list-style: none;
-            padding: 0;
-        }
-        .news-item {
-            margin: 1em 0;
-            padding: 1em;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-        }
-        .news-date {
-            color: #666;
+        .links {
+            margin-left: 1em;
             font-size: 0.9em;
+        }
+        .links a {
+            color: #3498db;
+            text-decoration: none;
+            margin-right: 1em;
+        }
+        .links a:hover {
+            text-decoration: underline;
+        }
+        #loading {
+            text-align: center;
+            padding: 2em;
+            font-style: italic;
+            color: #666;
+        }
+        #error {
+            color: red;
+            padding: 1em;
+            border: 1px solid red;
+            display: none;
+            margin: 1em 0;
         }
     </style>
 </head>
