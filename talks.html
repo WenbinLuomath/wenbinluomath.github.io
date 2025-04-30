@@ -7,33 +7,58 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         .talks-container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
+            line-height: 1.6;
         }
-        .talks-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
+        .talk-section {
+            margin-top: 2em;
+            position: relative;
+            padding-left: 80px;
         }
-        .talks-table th, 
-        .talks-table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        .talks-table th {
-            background-color: #f5f6fa;
-        }
-        .talks-table tr:hover {
-            background-color: #f8f9fa;
-        }
-        .section-header {
-            font-size: 1.8em;
+        .year-header {
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.5em;
             color: #2c3e50;
-            margin: 1.5em 0 1em 0;
-            border-bottom: 3px solid #3498db;
-            padding-bottom: 0.5em;
+            font-weight: bold;
+        }
+        .talks-list {
+            border-left: 2px solid #3498db;
+            padding-left: 20px;
+            margin-left: 10px;
+        }
+        .talk {
+            margin-bottom: 1.5em;
+        }
+        .talk-date {
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        .talk-title {
+            margin: 0.2em 0;
+        }
+        .talk-venue {
+            color: #666;
+            font-style: italic;
+        }
+        @media (max-width: 768px) {
+            .talk-section {
+                padding-left: 0;
+            }
+            .year-header {
+                position: relative;
+                margin-bottom: 1em;
+                border-bottom: 2px solid #3498db;
+                padding-bottom: 0.3em;
+            }
+            .talks-list {
+                border-left: none;
+                padding-left: 0;
+                margin-left: 0;
+            }
         }
     </style>
 </head>
@@ -48,46 +73,84 @@
             </ul>
         </nav>
     </header>
+
     <main class="talks-container">
         <h1>Talks</h1>
-        
-        <section>
-            <h2 class="section-header">Upcoming Talks</h2>
-            <table class="talks-table">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Title</th>
-                        <th>Event</th>
-                        <th>Location</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Add upcoming talks here -->
-                </tbody>
-            </table>
-        </section>
 
-        <section>
-            <h2 class="section-header">Past Talks</h2>
-            <table class="talks-table">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Title</th>
-                        <th>Event</th>
-                        <th>Location</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Add past talks here -->
-                </tbody>
-            </table>
-        </section>
+        <div class="talk-section">
+            <h2 class="year-header">2025</h2>
+            <div class="talks-list">
+                <div class="talk">
+                    <div class="talk-date">March 2025</div>
+                    <div class="talk-title">Geometric Bogomolov conjecture for semiabelian varieties</div>
+                    <div class="talk-venue">Diophantine Days, Westlake University, Hangzhou, China</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="talk-section">
+            <h2 class="year-header">2024</h2>
+            <div class="talks-list">
+                <div class="talk">
+                    <div class="talk-date">November 2024</div>
+                    <div class="talk-title">Geometric Bogomolov conjecture for semiabelian varieties</div>
+                    <div class="talk-venue">Seminar on Nevalinna Theory and Arakelov Geometry, China</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="talk-section">
+            <h2 class="year-header">2023</h2>
+            <div class="talks-list">
+                <div class="talk">
+                    <div class="talk-date">December 2023</div>
+                    <div class="talk-title">Arakelov geometry for flag varieties over function fields</div>
+                    <div class="talk-venue">BICMR postdoc Seminar, Peking University, Beijing, China</div>
+                </div>
+                <div class="talk">
+                    <div class="talk-date">January 2023</div>
+                    <div class="talk-title">Arithmetic Hilbert-Samuel and equidistribution theorems</div>
+                    <div class="talk-venue">NCTS East Asia Core Doctoral Forum in Mathematics (Online)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="talk-section">
+            <h2 class="year-header">2022</h2>
+            <div class="talks-list">
+                <div class="talk">
+                    <div class="talk-date">September 2022</div>
+                    <div class="talk-title">A relative bigness inequality and equidistribution theorem over function fields</div>
+                    <div class="talk-venue">Intercity Seminar on Arakelov Geometry 2022, ICMAT, Madrid, Spain</div>
+                </div>
+                <div class="talk">
+                    <div class="talk-date">July 2022</div>
+                    <div class="talk-title">A relative bigness inequality over function fields</div>
+                    <div class="talk-venue">Kinosaki Symposium on Algebraic Geometry 2022, Kinosaki, Japan</div>
+                </div>
+                <div class="talk">
+                    <div class="talk-date">March 2022</div>
+                    <div class="talk-title">A relative bigness inequality and equidistribution theorem over function fields</div>
+                    <div class="talk-venue">Seminar - New Adic and Algebraic Directions in Motivic Homotopy Theory (Online)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="talk-section">
+            <h2 class="year-header">2020</h2>
+            <div class="talks-list">
+                <div class="talk">
+                    <div class="talk-date">May 2020</div>
+                    <div class="talk-title">The continuity of χ-volume over adelic curves</div>
+                    <div class="talk-venue">2nd Kyoto-Hefei Workshop on Arithmetic Geometry, Kyoto University, Kyoto Japan</div>
+                </div>
+            </div>
+        </div>
     </main>
+
     <footer>
-        <p>© 2025 Wenbin Luo</p>
-        <p>Last updated: 2025-04-30</p>
+        <p>© 2024 Wenbin Luo</p>
+        <p>Last updated: 2025-04-30 10:23:15</p>
     </footer>
 </body>
 </html>
