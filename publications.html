@@ -113,7 +113,7 @@
 
     <footer>
         <p>© 2024 Wenbin Luo</p>
-        <p>Last updated: 2025-04-30 08:32:58</p>
+        <p>Last updated: 2025-04-30 08:40:01</p>
     </footer>
 
     <script>
@@ -148,13 +148,14 @@
                 const authors = this.formatAuthors(this.entry.author);
                 const title = this.entry.title.replace(/[{}]/g, '');
                 const year = this.entry.year;
+                const note = this.entry.note ? ` (${this.entry.note})` : '';
 
                 let content = '';
                 if (this.entry.type.toLowerCase() === 'unpublished') {
-                    // For unpublished entries, only show author, title, and links
+                    // For unpublished entries, only show author, title, note, and links
                     content = `<div class="publication">
                         <span class="author">${authors}</span>. 
-                        "<span class="title">${title}</span>." `;
+                        "<span class="title">${title}</span>."${note} `;
                     
                     // Add arXiv link if available
                     if (this.entry.url) {
@@ -171,7 +172,7 @@
                     content = `<div class="publication">
                         <span class="author">${authors}</span>. 
                         "<span class="title">${title}</span>." 
-                        <span class="journal">${journal}</span>${volume}${number}${pages}, ${year}.`;
+                        <span class="journal">${journal}</span>${volume}${number}${pages}, ${year}${note}.`;
                     
                     // Add journal and arXiv links if available
                     if (this.entry.journal_url || this.entry.arxiv) {
