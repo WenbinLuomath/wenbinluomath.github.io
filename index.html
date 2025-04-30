@@ -3,8 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academic Portfolio - Home</title>
+    <title>Wenbin Luo - Mathematical Research</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .home-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .profile-section {
+            text-align: center;
+            margin: 2em 0;
+        }
+        .profile-pic {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 20px auto;
+        }
+        .research-interests {
+            max-width: 800px;
+            margin: 2em auto;
+            text-align: left;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        .research-interests h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5em;
+            margin-bottom: 1em;
+        }
+        .advisor-info {
+            margin: 1em 0;
+        }
+        .advisor-name {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .news-section {
+            margin: 2em 0;
+        }
+        .news-list {
+            list-style: none;
+            padding: 0;
+        }
+        .news-item {
+            margin: 1em 0;
+            padding: 1em;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        .news-date {
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -17,20 +73,46 @@
             </ul>
         </nav>
     </header>
-    <main>
-        <section class="home">
-            <img src="images/profile.jpg" alt="Profile Picture" class="profile-pic">
-            <h1>Welcome to My Academic Portfolio</h1>
-            <h2>Latest News</h2>
-            <ul class="news">
-                <li>News item 1</li>
-                <li>News item 2</li>
-                <li>News item 3</li>
+    <main class="home-container">
+        <section class="profile-section">
+            <img src="images/profile.jpg" alt="Wenbin Luo" class="profile-pic">
+            <h1>Wenbin Luo</h1>
+            <p>Postdoctoral Researcher</p>
+            <p>Beijing International Center for Mathematical Research</p>
+            <p>Email: [Your Email]</p>
+        </section>
+
+        <section class="research-interests">
+            <h2>Research</h2>
+            <p>I am currently a postdoctoral researcher at the Beijing International Center for Mathematical Research, 
+               working under the supervision of <span class="advisor-name">Prof. Xinyi Yuan</span>.</p>
+            
+            <div class="advisor-info">
+                <p>PhD Supervisor: <span class="advisor-name">Prof. Atsushi Moriwaki</span>, Kyoto University</p>
+            </div>
+
+            <h3>Research Interests:</h3>
+            <ul>
+                <li>Arakelov Geometry</li>
+                <li>Diophantine Geometry</li>
+                <li>Arithmetic Dynamical Systems</li>
+            </ul>
+        </section>
+
+        <section class="news-section">
+            <h2>News</h2>
+            <ul class="news-list">
+                <li class="news-item">
+                    <span class="news-date">April 2025</span>
+                    <p>[Add your latest news or updates here]</p>
+                </li>
+                <!-- Add more news items as needed -->
             </ul>
         </section>
     </main>
     <footer>
-        <p>© 2025 Your Name</p>
+        <p>© 2025 Wenbin Luo</p>
+        <p>Last updated: 2025-04-30</p>
     </footer>
 </body>
 </html>
