@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Publications - Wenbin Luo</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -17,15 +18,22 @@
             padding-left: 2em;
             text-indent: -2em;
         }
+        .section-header {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin: 1.5em 0 1em 0;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.5em;
+        }
         .year-section {
-            margin-top: 2em;
+            margin-top: 1.5em;
         }
         .year-header {
-            font-size: 1.5em;
-            color: #2c3e50;
+            font-size: 1.3em;
+            color: #34495e;
             margin-bottom: 1em;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 0.5em;
+            border-bottom: 1px solid #bdc3c7;
+            padding-bottom: 0.3em;
         }
         .title {
             font-weight: bold;
@@ -35,6 +43,18 @@
         }
         .author {
             color: #2c3e50;
+        }
+        .links {
+            margin-left: 1em;
+            font-size: 0.9em;
+        }
+        .links a {
+            color: #3498db;
+            text-decoration: none;
+            margin-right: 1em;
+        }
+        .links a:hover {
+            text-decoration: underline;
         }
         #loading {
             text-align: center;
@@ -52,10 +72,25 @@
     </style>
 </head>
 <body>
-    <h1>Publications</h1>
-    <div id="loading">Loading publications...</div>
-    <div id="error"></div>
-    <div id="publications"></div>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="publications.html">Publications</a></li>
+                <li><a href="talks.html">Talks</a></li>
+                <li><a href="cv.html">CV</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Publications</h1>
+        <div id="loading">Loading publications...</div>
+        <div id="error"></div>
+        <div id="publications"></div>
+    </main>
+    <footer>
+        <p>© 2025 Wenbin Luo</p>
+    </footer>
 
     <script>
         class Publication {
@@ -80,15 +115,28 @@
                 const authors = this.formatAuthors(this.entry.author);
                 const title = this.entry.title.replace(/[{}]/g, '');
                 const year = this.entry.year;
-                const journal = this.entry.journal || this.entry.booktitle;
+                const journal = this.entry.journal || this.entry.booktitle || '';
                 const volume = this.entry.volume ? `, vol. ${this.entry.volume}` : '';
                 const number = this.entry.number ? `(${this.entry.number})` : '';
                 const pages = this.entry.pages ? `, pp. ${this.entry.pages}` : '';
 
+                let links = '';
+                if (this.entry.journal_url || this.entry.arxiv) {
+                    links += '<span class="links">[';
+                    if (this.entry.journal_url) {
+                        links += `<a href="${this.entry.journal_url}" target="_blank">journal</a>`;
+                    }
+                    if (this.entry.arxiv) {
+                        links += `<a href="${this.entry.arxiv}" target="_blank">arXiv</a>`;
+                    }
+                    links += ']</span>';
+                }
+
                 return `<div class="publication">
                     <span class="author">${authors}</span>. 
                     "<span class="title">${title}</span>." 
-                    <span class="journal">${journal}</span>${volume}${number}${pages}, ${year}.
+                    ${journal ? `<span class="journal">${journal}</span>` : ''}${volume}${number}${pages}, ${year}.
+                    ${links}
                 </div>`;
             }
         }
@@ -102,7 +150,7 @@
                 let match;
                 while ((match = entryRegex.exec(text)) !== null) {
                     const entry = {
-                        type: match[1],
+                        type: match[1].toLowerCase(),
                         key: match[2],
                     };
 
@@ -132,25 +180,42 @@
                     throw new Error('No publications found in the BibTeX file');
                 }
 
-                // Group by year
-                const publicationsByYear = {};
-                entries.forEach(entry => {
-                    const year = entry.year || 'Unknown Year';
-                    if (!publicationsByYear[year]) {
-                        publicationsByYear[year] = [];
-                    }
-                    publicationsByYear[year].push(new Publication(entry));
-                });
+                // Separate entries by type
+                const articles = entries.filter(entry => entry.type === 'article');
+                const preprints = entries.filter(entry => entry.type === 'unpublished');
 
-                // Generate HTML
-                const years = Object.keys(publicationsByYear).sort((a, b) => b - a);
+                // Group by year within each type
+                function groupByYear(entries) {
+                    const grouped = {};
+                    entries.forEach(entry => {
+                        const year = entry.year || 'Unknown Year';
+                        if (!grouped[year]) {
+                            grouped[year] = [];
+                        }
+                        grouped[year].push(new Publication(entry));
+                    });
+                    return grouped;
+                }
+
+                function generateSectionHTML(entries, sectionTitle) {
+                    if (entries.length === 0) return '';
+                    
+                    const byYear = groupByYear(entries);
+                    const years = Object.keys(byYear).sort((a, b) => b - a);
+                    
+                    let html = `<h2 class="section-header">${sectionTitle}</h2>`;
+                    years.forEach(year => {
+                        html += `<div class="year-section">
+                            <h3 class="year-header">${year}</h3>
+                            ${byYear[year].map(pub => pub.toString()).join('\n')}
+                        </div>`;
+                    });
+                    return html;
+                }
+
                 let html = '';
-                years.forEach(year => {
-                    html += `<div class="year-section">
-                        <h2 class="year-header">${year}</h2>
-                        ${publicationsByYear[year].map(pub => pub.toString()).join('\n')}
-                    </div>`;
-                });
+                html += generateSectionHTML(articles, 'Journal Articles');
+                html += generateSectionHTML(preprints, 'Preprints');
 
                 document.getElementById('publications').innerHTML = html;
                 document.getElementById('loading').style.display = 'none';
