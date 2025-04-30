@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publications - Wenbin Luo</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .publication {
+            margin-bottom: 1.5em;
+            padding-left: 2em;
+            text-indent: -2em;
+        }
+        .year-section {
+            margin-top: 2em;
+        }
+        .year-header {
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin-bottom: 1em;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5em;
+        }
+        .title {
+            font-weight: bold;
+        }
+        .journal {
+            font-style: italic;
+        }
+        .author {
+            color: #2c3e50;
+        }
+        #loading {
+            text-align: center;
+            padding: 2em;
+            font-style: italic;
+            color: #666;
+        }
+        #error {
+            color: red;
+            padding: 1em;
+            border: 1px solid red;
+            display: none;
+            margin: 1em 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Publications</h1>
+    <div id="loading">Loading publications...</div>
+    <div id="error"></div>
+    <div id="publications"></div>
+
+    <script>
+        class Publication {
+            constructor(entry) {
+                this.entry = entry;
+            }
+
+            formatAuthors(authorString) {
+                if (!authorString) return '';
+                return authorString.split(' and ')
+                    .map(author => {
+                        const parts = author.split(', ');
+                        if (parts.length === 2) {
+                            return `${parts[1]} ${parts[0]}`;
+                        }
+                        return author;
+                    })
+                    .join(', ');
+            }
+
+            toString() {
+                const authors = this.formatAuthors(this.entry.author);
+                const title = this.entry.title.replace(/[{}]/g, '');
+                const year = this.entry.year;
+                const journal = this.entry.journal || this.entry.booktitle;
+                const volume = this.entry.volume ? `, vol. ${this.entry.volume}` : '';
+                const number = this.entry.number ? `(${this.entry.number})` : '';
+                const pages = this.entry.pages ? `, pp. ${this.entry.pages}` : '';
+
+                return `<div class="publication">
+                    <span class="author">${authors}</span>. 
+                    "<span class="title">${title}</span>." 
+                    <span class="journal">${journal}</span>${volume}${number}${pages}, ${year}.
+                </div>`;
+            }
+        }
+
+        class BibtexParser {
+            parse(text) {
+                const entries = [];
+                const entryRegex = /@(\w+)\s*{\s*([^,]*),([^@]*)/g;
+                const fieldRegex = /(\w+)\s*=\s*[{"]([^}"]*)[}"]/g;
+
+                let match;
+                while ((match = entryRegex.exec(text)) !== null) {
+                    const entry = {
+                        type: match[1],
+                        key: match[2],
+                    };
+
+                    let fieldMatch;
+                    const fieldText = match[3];
+                    while ((fieldMatch = fieldRegex.exec(fieldText)) !== null) {
+                        entry[fieldMatch[1].toLowerCase()] = fieldMatch[2];
+                    }
+
+                    entries.push(entry);
+                }
+
+                return entries;
+            }
+        }
+
+        async function loadPublications() {
+            try {
+                const response = await fetch('mypublications.bib');
+                if (!response.ok) throw new Error('Failed to load BibTeX file');
+                
+                const text = await response.text();
+                const parser = new BibtexParser();
+                const entries = parser.parse(text);
+
+                if (entries.length === 0) {
+                    throw new Error('No publications found in the BibTeX file');
+                }
+
+                // Group by year
+                const publicationsByYear = {};
+                entries.forEach(entry => {
+                    const year = entry.year || 'Unknown Year';
+                    if (!publicationsByYear[year]) {
+                        publicationsByYear[year] = [];
+                    }
+                    publicationsByYear[year].push(new Publication(entry));
+                });
+
+                // Generate HTML
+                const years = Object.keys(publicationsByYear).sort((a, b) => b - a);
+                let html = '';
+                years.forEach(year => {
+                    html += `<div class="year-section">
+                        <h2 class="year-header">${year}</h2>
+                        ${publicationsByYear[year].map(pub => pub.toString()).join('\n')}
+                    </div>`;
+                });
+
+                document.getElementById('publications').innerHTML = html;
+                document.getElementById('loading').style.display = 'none';
+            } catch (error) {
+                document.getElementById('loading').style.display = 'none';
+                const errorDiv = document.getElementById('error');
+                errorDiv.style.display = 'block';
+                errorDiv.textContent = `Error: ${error.message}. Please ensure mypublications.bib exists and is properly formatted.`;
+            }
+        }
+
+        loadPublications();
+    </script>
+</body>
+</html>
