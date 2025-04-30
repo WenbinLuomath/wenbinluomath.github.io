@@ -6,17 +6,27 @@
     <title>Wenbin Luo - Mathematical Research</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            max-width: 1000px;
+        .talks-container {
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            line-height: 1.6;
         }
-        .publication {
-            margin-bottom: 1.5em;
-            padding-left: 2em;
-            text-indent: -2em;
+        .talks-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .talks-table th, 
+        .talks-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .talks-table th {
+            background-color: #f5f6fa;
+        }
+        .talks-table tr:hover {
+            background-color: #f8f9fa;
         }
         .section-header {
             font-size: 1.8em;
@@ -24,50 +34,6 @@
             margin: 1.5em 0 1em 0;
             border-bottom: 3px solid #3498db;
             padding-bottom: 0.5em;
-        }
-        .year-section {
-            margin-top: 1.5em;
-        }
-        .year-header {
-            font-size: 1.3em;
-            color: #34495e;
-            margin-bottom: 1em;
-            border-bottom: 1px solid #bdc3c7;
-            padding-bottom: 0.3em;
-        }
-        .title {
-            font-weight: bold;
-        }
-        .journal {
-            font-style: italic;
-        }
-        .author {
-            color: #2c3e50;
-        }
-        .links {
-            margin-left: 1em;
-            font-size: 0.9em;
-        }
-        .links a {
-            color: #3498db;
-            text-decoration: none;
-            margin-right: 1em;
-        }
-        .links a:hover {
-            text-decoration: underline;
-        }
-        #loading {
-            text-align: center;
-            padding: 2em;
-            font-style: italic;
-            color: #666;
-        }
-        #error {
-            color: red;
-            padding: 1em;
-            border: 1px solid red;
-            display: none;
-            margin: 1em 0;
         }
     </style>
 </head>
