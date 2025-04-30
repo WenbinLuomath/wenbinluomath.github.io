@@ -6,48 +6,63 @@
     <title>Wenbin Luo - Mathematical Research</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        .talks-container {
+        .home-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
-        .talks-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
+        .profile-section {
+            text-align: center;
+            margin: 2em 0;
         }
-        .talks-table th, 
-        .talks-table td {
-            padding: 12px;
+        .profile-pic {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 20px auto;
+        }
+        .research-interests {
+            max-width: 800px;
+            margin: 2em auto;
             text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        .talks-table th {
-            background-color: #f5f6fa;
-        }
-        .talks-table tr:hover {
+            padding: 20px;
             background-color: #f8f9fa;
+            border-radius: 5px;
         }
-        .section-header {
-            font-size: 1.8em;
+        .research-interests h2 {
             color: #2c3e50;
-            margin: 1.5em 0 1em 0;
-            border-bottom: 3px solid #3498db;
+            border-bottom: 2px solid #3498db;
             padding-bottom: 0.5em;
+            margin-bottom: 1em;
+        }
+        .advisor-info {
+            margin: 1em 0;
+        }
+        .advisor-name {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .news-section {
+            margin: 2em 0;
+        }
+        .news-list {
+            list-style: none;
+            padding: 0;
+        }
+        .news-item {
+            margin: 1em 0;
+            padding: 1em;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        .news-date {
+            color: #666;
+            font-size: 0.9em;
         }
     </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="publications.html">Publications</a></li>
-                <li><a href="talks.html">Talks</a></li>
-                <li><a href="cv.html">CV</a></li>
-            </ul>
-        </nav>
-    </header>
     <main class="home-container">
         <section class="profile-section">
             <img src="images/profile.jpg" alt="Wenbin Luo" class="profile-pic">
@@ -78,10 +93,9 @@
             <h2>News</h2>
             <ul class="news-list">
                 <li class="news-item">
-                    <span class="news-date">April 2025</span>
+                    <span class="news-date">April 2024</span>
                     <p>[Add your latest news or updates here]</p>
                 </li>
-                <!-- Add more news items as needed -->
             </ul>
         </section>
     </main>
