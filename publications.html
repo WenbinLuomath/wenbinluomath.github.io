@@ -8,15 +8,10 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
             line-height: 1.6;
-        }
-        .publication {
-            margin-bottom: 1.5em;
-            padding-left: 2em;
-            text-indent: -2em;
         }
         .section-header {
             font-size: 1.8em;
@@ -25,28 +20,44 @@
             border-bottom: 3px solid #3498db;
             padding-bottom: 0.5em;
         }
-        .year-section {
-            margin-top: 1.5em;
+        .publications-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
         }
-        .year-header {
-            font-size: 1.3em;
-            color: #34495e;
-            margin-bottom: 1em;
-            border-bottom: 1px solid #bdc3c7;
-            padding-bottom: 0.3em;
+        .publications-table th, 
+        .publications-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
         }
-        .title {
-            font-weight: bold;
+        .publications-table th {
+            background-color: #f5f6fa;
+            cursor: pointer;
+            position: relative;
         }
-        .journal {
-            font-style: italic;
+        .publications-table th:hover {
+            background-color: #e8e9ec;
         }
-        .author {
-            color: #2c3e50;
+        .publications-table tr:hover {
+            background-color: #f8f9fa;
         }
-        .links {
-            margin-left: 1em;
-            font-size: 0.9em;
+        .sort-icon {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            margin-left: 5px;
+            vertical-align: middle;
+        }
+        .sort-icon.asc {
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 5px solid #333;
+        }
+        .sort-icon.desc {
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid #333;
         }
         .links a {
             color: #3498db;
@@ -111,33 +122,37 @@
                     .join(', ');
             }
 
-            toString() {
-                const authors = this.formatAuthors(this.entry.author);
-                const title = this.entry.title.replace(/[{}]/g, '');
-                const year = this.entry.year;
-                const journal = this.entry.journal || this.entry.booktitle || '';
-                const volume = this.entry.volume ? `, vol. ${this.entry.volume}` : '';
-                const number = this.entry.number ? `(${this.entry.number})` : '';
-                const pages = this.entry.pages ? `, pp. ${this.entry.pages}` : '';
-
-                let links = '';
-                if (this.entry.journal_url || this.entry.arxiv) {
-                    links += '<span class="links">[';
+            getLinks() {
+                let links = [];
+                if (this.entry.type === 'unpublished') {
+                    if (this.entry.url) {
+                        links.push(`<a href="${this.entry.url}" target="_blank">arXiv</a>`);
+                    }
+                } else {
                     if (this.entry.journal_url) {
-                        links += `<a href="${this.entry.journal_url}" target="_blank">journal</a>`;
+                        links.push(`<a href="${this.entry.journal_url}" target="_blank">journal</a>`);
                     }
                     if (this.entry.arxiv) {
-                        links += `<a href="${this.entry.arxiv}" target="_blank">arXiv</a>`;
+                        links.push(`<a href="${this.entry.arxiv}" target="_blank">arXiv</a>`);
                     }
-                    links += ']</span>';
                 }
+                return links.length ? links.join(' ') : '';
+            }
 
-                return `<div class="publication">
-                    <span class="author">${authors}</span>. 
-                    "<span class="title">${title}</span>." 
-                    ${journal ? `<span class="journal">${journal}</span>` : ''}${volume}${number}${pages}, ${year}.
-                    ${links}
-                </div>`;
+            toTableRow() {
+                const authors = this.formatAuthors(this.entry.author);
+                const title = this.entry.title.replace(/[{}]/g, '');
+                const year = this.entry.year || '';
+                const journal = this.entry.journal || this.entry.booktitle || '';
+                const links = this.getLinks();
+
+                return `<tr>
+                    <td>${year}</td>
+                    <td>${title}</td>
+                    <td>${authors}</td>
+                    <td>${journal}</td>
+                    <td class="links">${links}</td>
+                </tr>`;
             }
         }
 
@@ -167,6 +182,65 @@
             }
         }
 
+        function createTable(publications, headers) {
+            const table = document.createElement('table');
+            table.className = 'publications-table';
+            
+            // Create header row
+            const thead = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+            headers.forEach(header => {
+                const th = document.createElement('th');
+                th.textContent = header;
+                th.onclick = () => sortTable(table, headers.indexOf(header));
+                headerRow.appendChild(th);
+            });
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+
+            // Create table body
+            const tbody = document.createElement('tbody');
+            publications.forEach(pub => {
+                tbody.insertAdjacentHTML('beforeend', pub.toTableRow());
+            });
+            table.appendChild(tbody);
+
+            return table;
+        }
+
+        function sortTable(table, colIndex) {
+            const tbody = table.getElementsByTagName('tbody')[0];
+            const rows = Array.from(tbody.getElementsByTagName('tr'));
+            const th = table.getElementsByTagName('th')[colIndex];
+            
+            // Remove existing sort icons from all headers
+            table.querySelectorAll('.sort-icon').forEach(icon => icon.remove());
+            
+            // Determine sort direction
+            const isAsc = th.classList.contains('asc');
+            table.querySelectorAll('th').forEach(header => {
+                header.classList.remove('asc', 'desc');
+            });
+            th.classList.add(isAsc ? 'desc' : 'asc');
+            
+            // Add sort icon
+            const sortIcon = document.createElement('span');
+            sortIcon.className = `sort-icon ${isAsc ? 'desc' : 'asc'}`;
+            th.appendChild(sortIcon);
+
+            // Sort rows
+            rows.sort((a, b) => {
+                const aValue = a.cells[colIndex].textContent.trim();
+                const bValue = b.cells[colIndex].textContent.trim();
+                return isAsc ? 
+                    bValue.localeCompare(aValue, undefined, {numeric: true}) :
+                    aValue.localeCompare(bValue, undefined, {numeric: true});
+            });
+
+            // Reorder rows
+            rows.forEach(row => tbody.appendChild(row));
+        }
+
         async function loadPublications() {
             try {
                 const response = await fetch('mypublications.bib');
@@ -181,44 +255,35 @@
                 }
 
                 // Separate entries by type
-                const articles = entries.filter(entry => entry.type === 'article');
-                const preprints = entries.filter(entry => entry.type === 'unpublished');
+                const articles = entries
+                    .filter(entry => entry.type === 'article')
+                    .map(entry => new Publication(entry));
+                const preprints = entries
+                    .filter(entry => entry.type === 'unpublished')
+                    .map(entry => new Publication(entry));
 
-                // Group by year within each type
-                function groupByYear(entries) {
-                    const grouped = {};
-                    entries.forEach(entry => {
-                        const year = entry.year || 'Unknown Year';
-                        if (!grouped[year]) {
-                            grouped[year] = [];
-                        }
-                        grouped[year].push(new Publication(entry));
-                    });
-                    return grouped;
-                }
-
-                function generateSectionHTML(entries, sectionTitle) {
-                    if (entries.length === 0) return '';
-                    
-                    const byYear = groupByYear(entries);
-                    const years = Object.keys(byYear).sort((a, b) => b - a);
-                    
-                    let html = `<h2 class="section-header">${sectionTitle}</h2>`;
-                    years.forEach(year => {
-                        html += `<div class="year-section">
-                            <h3 class="year-header">${year}</h3>
-                            ${byYear[year].map(pub => pub.toString()).join('\n')}
-                        </div>`;
-                    });
-                    return html;
-                }
-
+                const headers = ['Year', 'Title', 'Authors', 'Journal/Venue', 'Links'];
                 let html = '';
-                html += generateSectionHTML(articles, 'Journal Articles');
-                html += generateSectionHTML(preprints, 'Preprints');
+                
+                if (articles.length > 0) {
+                    html += '<h2 class="section-header">Journal Articles</h2>';
+                    const articlesTable = createTable(articles, headers);
+                    html += articlesTable.outerHTML;
+                }
+
+                if (preprints.length > 0) {
+                    html += '<h2 class="section-header">Preprints</h2>';
+                    const preprintsTable = createTable(preprints, headers);
+                    html += preprintsTable.outerHTML;
+                }
 
                 document.getElementById('publications').innerHTML = html;
                 document.getElementById('loading').style.display = 'none';
+
+                // Sort all tables by year initially
+                document.querySelectorAll('.publications-table').forEach(table => {
+                    sortTable(table, 0); // Sort by year (first column)
+                });
             } catch (error) {
                 document.getElementById('loading').style.display = 'none';
                 const errorDiv = document.getElementById('error');
