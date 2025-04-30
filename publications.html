@@ -6,12 +6,15 @@
     <title>Publications - Wenbin Luo</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
+        .publications-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            line-height: 1.6;
+        }
+        .publication {
+            margin-bottom: 1.5em;
+            padding-left: 2em;
+            text-indent: -2em;
         }
         .section-header {
             font-size: 1.8em;
@@ -20,44 +23,27 @@
             border-bottom: 3px solid #3498db;
             padding-bottom: 0.5em;
         }
-        .publications-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
+        .year-section {
+            margin-top: 2em;
         }
-        .publications-table th, 
-        .publications-table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
+        .year-header {
+            font-size: 1.3em;
+            color: #34495e;
+            margin-bottom: 1em;
+            border-bottom: 1px solid #bdc3c7;
+            padding-bottom: 0.3em;
         }
-        .publications-table th {
-            background-color: #f5f6fa;
-            cursor: pointer;
-            position: relative;
+        .title {
+            font-weight: bold;
         }
-        .publications-table th:hover {
-            background-color: #e8e9ec;
+        .journal {
+            font-style: italic;
         }
-        .publications-table tr:hover {
-            background-color: #f8f9fa;
+        .author {
+            color: #2c3e50;
         }
-        .sort-icon {
-            display: inline-block;
-            width: 0;
-            height: 0;
-            margin-left: 5px;
-            vertical-align: middle;
-        }
-        .sort-icon.asc {
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-bottom: 5px solid #333;
-        }
-        .sort-icon.desc {
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-top: 5px solid #333;
+        .links {
+            margin-left: 0.5em;
         }
         .links a {
             color: #3498db;
@@ -93,7 +79,7 @@
             </ul>
         </nav>
     </header>
-    <main>
+    <main class="publications-container">
         <h1>Publications</h1>
         <div id="loading">Loading publications...</div>
         <div id="error"></div>
@@ -101,6 +87,7 @@
     </main>
     <footer>
         <p>© 2025 Wenbin Luo</p>
+        <p>Last updated: 2025-04-30</p>
     </footer>
 
     <script>
@@ -110,49 +97,63 @@
             }
 
             formatAuthors(authorString) {
-                if (!authorString) return '';
-                return authorString.split(' and ')
-                    .map(author => {
-                        const parts = author.split(', ');
-                        if (parts.length === 2) {
-                            return `${parts[1]} ${parts[0]}`;
-                        }
-                        return author;
-                    })
-                    .join(', ');
-            }
+            if (!authorString) return '';
+            return authorString.split(' and ')
+                .map(author => {
+                    const parts = author.split(', ');
+                    let formattedName;
+                    if (parts.length === 2) {
+                        // Handle "Luo, Wenbin" format
+                        formattedName = `${parts[1]} ${parts[0]}`;
+                    } else {
+                        // Handle "Wenbin Luo" format
+                        formattedName = author;
+                    }
+                    // Make name bold if it matches Wenbin Luo in either format
+                    if (formattedName === 'Wenbin Luo' || 
+                        formattedName === 'Luo, Wenbin' ||
+                        author === 'Wenbin Luo' || 
+                        author === 'Luo, Wenbin') {
+                        return `<strong>Wenbin Luo</strong>`;
+                    }
+                    return formattedName;
+                })
+                .join(', ');
 
-            getLinks() {
-                let links = [];
-                if (this.entry.type === 'unpublished') {
-                    if (this.entry.url) {
-                        links.push(`<a href="${this.entry.url}" target="_blank">arXiv</a>`);
-                    }
-                } else {
-                    if (this.entry.journal_url) {
-                        links.push(`<a href="${this.entry.journal_url}" target="_blank">journal</a>`);
-                    }
-                    if (this.entry.arxiv) {
-                        links.push(`<a href="${this.entry.arxiv}" target="_blank">arXiv</a>`);
-                    }
-                }
-                return links.length ? links.join(' ') : '';
-            }
-
-            toTableRow() {
+            toString() {
                 const authors = this.formatAuthors(this.entry.author);
                 const title = this.entry.title.replace(/[{}]/g, '');
-                const year = this.entry.year || '';
+                const year = this.entry.year;
                 const journal = this.entry.journal || this.entry.booktitle || '';
-                const links = this.getLinks();
+                const volume = this.entry.volume ? `, vol. ${this.entry.volume}` : '';
+                const number = this.entry.number ? `(${this.entry.number})` : '';
+                const pages = this.entry.pages ? `, pp. ${this.entry.pages}` : '';
 
-                return `<tr>
-                    <td>${year}</td>
-                    <td>${title}</td>
-                    <td>${authors}</td>
-                    <td>${journal}</td>
-                    <td class="links">${links}</td>
-                </tr>`;
+                let links = '';
+                if (this.entry.type === 'unpublished') {
+                    if (this.entry.url) {
+                        links += `<span class="links">[<a href="${this.entry.url}" target="_blank">arXiv</a>]</span>`;
+                    }
+                } else {
+                    if (this.entry.journal_url || this.entry.arxiv) {
+                        links += '<span class="links">[';
+                        if (this.entry.journal_url) {
+                            links += `<a href="${this.entry.journal_url}" target="_blank">journal</a>`;
+                        }
+                        if (this.entry.arxiv) {
+                            if (this.entry.journal_url) links += ' ';
+                            links += `<a href="${this.entry.arxiv}" target="_blank">arXiv</a>`;
+                        }
+                        links += ']</span>';
+                    }
+                }
+
+                return `<div class="publication">
+                    <span class="author">${authors}</span>. 
+                    "<span class="title">${title}</span>." 
+                    ${journal ? `<span class="journal">${journal}</span>` : ''}${volume}${number}${pages}, ${year}.
+                    ${links}
+                </div>`;
             }
         }
 
@@ -182,65 +183,6 @@
             }
         }
 
-        function createTable(publications, headers) {
-            const table = document.createElement('table');
-            table.className = 'publications-table';
-            
-            // Create header row
-            const thead = document.createElement('thead');
-            const headerRow = document.createElement('tr');
-            headers.forEach(header => {
-                const th = document.createElement('th');
-                th.textContent = header;
-                th.onclick = () => sortTable(table, headers.indexOf(header));
-                headerRow.appendChild(th);
-            });
-            thead.appendChild(headerRow);
-            table.appendChild(thead);
-
-            // Create table body
-            const tbody = document.createElement('tbody');
-            publications.forEach(pub => {
-                tbody.insertAdjacentHTML('beforeend', pub.toTableRow());
-            });
-            table.appendChild(tbody);
-
-            return table;
-        }
-
-        function sortTable(table, colIndex) {
-            const tbody = table.getElementsByTagName('tbody')[0];
-            const rows = Array.from(tbody.getElementsByTagName('tr'));
-            const th = table.getElementsByTagName('th')[colIndex];
-            
-            // Remove existing sort icons from all headers
-            table.querySelectorAll('.sort-icon').forEach(icon => icon.remove());
-            
-            // Determine sort direction
-            const isAsc = th.classList.contains('asc');
-            table.querySelectorAll('th').forEach(header => {
-                header.classList.remove('asc', 'desc');
-            });
-            th.classList.add(isAsc ? 'desc' : 'asc');
-            
-            // Add sort icon
-            const sortIcon = document.createElement('span');
-            sortIcon.className = `sort-icon ${isAsc ? 'desc' : 'asc'}`;
-            th.appendChild(sortIcon);
-
-            // Sort rows
-            rows.sort((a, b) => {
-                const aValue = a.cells[colIndex].textContent.trim();
-                const bValue = b.cells[colIndex].textContent.trim();
-                return isAsc ? 
-                    bValue.localeCompare(aValue, undefined, {numeric: true}) :
-                    aValue.localeCompare(bValue, undefined, {numeric: true});
-            });
-
-            // Reorder rows
-            rows.forEach(row => tbody.appendChild(row));
-        }
-
         async function loadPublications() {
             try {
                 const response = await fetch('mypublications.bib');
@@ -262,34 +204,51 @@
                     .filter(entry => entry.type === 'unpublished')
                     .map(entry => new Publication(entry));
 
-                const headers = ['Year', 'Title', 'Authors', 'Journal/Venue', 'Links'];
+                // Group by type and year
                 let html = '';
                 
                 if (articles.length > 0) {
                     html += '<h2 class="section-header">Journal Articles</h2>';
-                    const articlesTable = createTable(articles, headers);
-                    html += articlesTable.outerHTML;
+                    const articlesByYear = groupByYear(articles);
+                    html += generateYearSections(articlesByYear);
                 }
 
                 if (preprints.length > 0) {
                     html += '<h2 class="section-header">Preprints</h2>';
-                    const preprintsTable = createTable(preprints, headers);
-                    html += preprintsTable.outerHTML;
+                    const preprintsByYear = groupByYear(preprints);
+                    html += generateYearSections(preprintsByYear);
                 }
 
                 document.getElementById('publications').innerHTML = html;
                 document.getElementById('loading').style.display = 'none';
-
-                // Sort all tables by year initially
-                document.querySelectorAll('.publications-table').forEach(table => {
-                    sortTable(table, 0); // Sort by year (first column)
-                });
             } catch (error) {
                 document.getElementById('loading').style.display = 'none';
                 const errorDiv = document.getElementById('error');
                 errorDiv.style.display = 'block';
                 errorDiv.textContent = `Error: ${error.message}. Please ensure mypublications.bib exists and is properly formatted.`;
             }
+        }
+
+        function groupByYear(publications) {
+            const byYear = {};
+            publications.forEach(pub => {
+                const year = pub.entry.year || 'Unknown Year';
+                if (!byYear[year]) {
+                    byYear[year] = [];
+                }
+                byYear[year].push(pub);
+            });
+            return byYear;
+        }
+
+        function generateYearSections(publicationsByYear) {
+            const years = Object.keys(publicationsByYear).sort((a, b) => b - a);
+            return years.map(year => `
+                <div class="year-section">
+                    <h3 class="year-header">${year}</h3>
+                    ${publicationsByYear[year].map(pub => pub.toString()).join('\n')}
+                </div>
+            `).join('\n');
         }
 
         loadPublications();
