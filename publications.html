@@ -90,6 +90,30 @@
                 margin-left: 0;
             }
         }
+            .profile-links {
+        text-align: center;
+        margin: 1em 0 2em 0;
+        padding: 1em;
+        border-bottom: 1px solid #eee;
+    }
+    .profile-links a {
+        display: inline-flex;
+        align-items: center;
+        color: #3498db;
+        text-decoration: none;
+        margin: 0 1em;
+        padding: 0.5em 1em;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+    .profile-links a:hover {
+        background-color: #f7f9fc;
+        text-decoration: underline;
+    }
+    .profile-links img {
+        height: 20px;
+        margin-right: 8px;
+    }
     </style>
 </head>
 <body>
@@ -109,6 +133,16 @@
         <div id="loading">Loading publications...</div>
         <div id="error"></div>
         <div id="publications"></div>
+        <div class="profile-links">
+            <a href="https://mathscinet.ams.org/mathscinet/author?authorId=1621494" target="_blank">
+                <img src="https://www.ams.org/favicon.ico" alt="MathSciNet">
+                MathSciNet Profile
+            </a>
+            <a href="https://orcid.org/0000-0003-2388-7188" target="_blank">
+                <img src="https://orcid.org/assets/vectors/orcid.logo.icon.svg" alt="ORCID">
+                ORCID Profile
+            </a>
+        </div>
     </main>
 
     <footer>
