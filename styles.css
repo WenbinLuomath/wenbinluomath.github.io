@@ -10,21 +10,43 @@ header {
     padding: 10px 0;
 }
 
+/* Navigation bar styles */
+nav {
+    width: 100%;
+    max-width: 800px; /* Makes the navigation bar wider */
+    margin: 0 auto;
+}
+
 nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
-    justify-content: center;
+    justify-content: space-around; /* Changed from center to space-around for better spacing */
+    width: 100%;
 }
 
 nav ul li {
-    margin: 0 15px;
+    margin: 0;
+    padding: 0 20px;
 }
 
 nav ul li a {
     color: #fff;
     text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+/* Style for the active page */
+nav ul li a.active {
+    background-color: #555;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    background-color: #444;
 }
 
 .profile-pic {
