@@ -157,16 +157,5 @@
         <p>© 2024 Wenbin Luo</p>
         <p>Last updated: 2025-04-30 10:23:15</p>
     </footer>
-    <script>
-    // Get the current page filename
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    
-    // Find the navigation link that matches the current page and add the 'active' class
-    document.querySelectorAll('nav ul li a').forEach(link => {
-        if (link.getAttribute('href') === currentPage) {
-            link.classList.add('active');
-        }
-    });
-</script>
 </body>
 </html>
