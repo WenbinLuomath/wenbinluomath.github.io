@@ -35,23 +35,17 @@ nav ul li a {
     color: #fff;
     text-decoration: none;
     padding: 8px 16px;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-    display: inline-block;
-    position: relative;
+    transition: font-weight 0.3s;
 }
 
-/* Style for the active page - highlighted with underline and color */
+/* Style for the active page - only bold text */
 nav ul li a.active {
-    color: #fff;
     font-weight: bold;
-    background-color: #444; /* Subtle background highlight */
-    border-bottom: 2px solid #3498db; /* Blue underline */
 }
 
-/* Hover effect */
+/* Simple hover effect */
 nav ul li a:hover {
-    background-color: #444;
+    font-weight: bold;
 }
 
 .profile-pic {
