@@ -13,7 +13,7 @@ header {
 /* Navigation bar styles */
 nav {
     width: 100%;
-    max-width: 800px; /* Makes the navigation bar wider */
+    max-width: 800px;
     margin: 0 auto;
 }
 
@@ -22,7 +22,7 @@ nav ul {
     padding: 0;
     margin: 0;
     display: flex;
-    justify-content: space-around; /* Changed from center to space-around for better spacing */
+    justify-content: space-around;
     width: 100%;
 }
 
@@ -36,15 +36,20 @@ nav ul li a {
     text-decoration: none;
     padding: 8px 16px;
     border-radius: 4px;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
+    display: inline-block;
+    position: relative;
 }
 
-/* Style for the active page */
+/* Style for the active page - highlighted with underline and color */
 nav ul li a.active {
-    background-color: #555;
+    color: #fff;
     font-weight: bold;
+    background-color: #444; /* Subtle background highlight */
+    border-bottom: 2px solid #3498db; /* Blue underline */
 }
 
+/* Hover effect */
 nav ul li a:hover {
     background-color: #444;
 }
