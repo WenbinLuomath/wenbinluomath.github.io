@@ -38,7 +38,7 @@ nav ul li a {
     transition: font-weight 0.3s;
 }
 
-/* Style for the active page - only bold text */
+/* Style for the active page */
 nav ul li a.active {
     font-weight: bold;
 }
@@ -46,6 +46,22 @@ nav ul li a.active {
 /* Simple hover effect */
 nav ul li a:hover {
     font-weight: bold;
+}
+
+/* Responsive Design for Mobile Screens */
+@media (max-width: 600px) {
+    nav ul {
+        flex-direction: column; /* Stack items vertically */
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 10px 0; /* Add space between items */
+    }
+
+    nav ul li a {
+        padding: 10px 20px; /* Increase padding for touch-friendly design */
+    }
 }
 
 .profile-pic {
