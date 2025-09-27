@@ -1,83 +1,156 @@
+:root{
+    --bg-color: #ffffff;
+    --text-color: #222222;
+    --muted-color: #666666;
+    --primary-color: #3498db;
+    --card-bg: #f8f9fa;
+    --header-bg: #ffffff;
+    --nav-link: #222222;
+    --button-bg: rgba(0,0,0,0.06);
+    --button-text: #222222;
+}
+
 body {
-    font-family: Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     margin: 0;
-    padding: 0;
+    line-height: 1.5;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Dark theme overrides */
+body.dark-theme {
+    --bg-color: #121212;
+    --text-color: #e8e8e8;
+    --muted-color: #9aa0a6;
+    --primary-color: #6ea8ff;
+    --card-bg: #1a1a1a;
+    --header-bg: #0f0f0f;
+    --nav-link: #e8e8e8;
+    --button-bg: rgba(255,255,255,0.06);
+    --button-text: #e8e8e8;
+}
+
+/* Header and nav */
 header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--header-bg);
+    padding: 12px 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    position: sticky;
+    top: 0;
+    z-index: 40;
 }
-
-/* Navigation bar styles */
-nav {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
 nav ul {
     list-style: none;
+    margin: 0;
     padding: 0;
-    margin: 0;
     display: flex;
-    justify-content: space-around;
-    width: 100%;
+    gap: 1rem;
 }
-
-nav ul li {
-    margin: 0;
-    padding: 0 20px;
-}
-
-nav ul li a {
-    color: #fff;
+nav a {
     text-decoration: none;
-    padding: 8px 16px;
-    transition: font-weight 0.3s;
+    color: var(--nav-link);
+    font-weight: 500;
+    padding: 6px 8px;
+    border-radius: 4px;
+}
+nav a.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
 }
 
-/* Style for the active page */
-nav ul li a.active {
-    font-weight: bold;
+/* Theme toggle button */
+#theme-toggle {
+    background: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    padding: 8px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+#theme-toggle:focus {
+    outline: 2px solid rgba(52,152,219,0.25);
+    outline-offset: 2px;
 }
 
-/* Simple hover effect */
-nav ul li a:hover {
-    font-weight: bold;
+/* Main content layout */
+.home-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
-
-/* Responsive Design for Mobile Screens */
-@media (max-width: 600px) {
-    nav ul {
-        flex-direction: column; /* Stack items vertically */
-        align-items: center;
-    }
-
-    nav ul li {
-        margin: 10px 0; /* Add space between items */
-    }
-
-    nav ul li a {
-        padding: 10px 20px; /* Increase padding for touch-friendly design */
-    }
+.profile-section {
+    text-align: center;
+    margin: 2em 0;
 }
-
 .profile-pic {
-    display: block;
-    margin: 20px auto;
-    width: 150px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
+    object-fit: cover;
+    margin: 20px auto;
+}
+.research-interests {
+    max-width: 800px;
+    margin: 2em auto;
+    text-align: left;
+    padding: 20px;
+    background-color: var(--card-bg);
+    border-radius: 5px;
+}
+.research-interests h2 {
+    color: var(--nav-link);
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+}
+.advisor-info {
+    margin: 1em 0;
+}
+.advisor-name {
+    font-weight: bold;
+    color: var(--nav-link);
+}
+.news-section {
+    margin: 2em 0;
+}
+.news-list {
+    list-style: none;
+    padding: 0;
+}
+.news-item {
+    margin: 1em 0;
+    padding: 1em;
+    background-color: var(--card-bg);
+    border-radius: 5px;
+}
+.news-date {
+    color: var(--muted-color);
+    font-size: 0.9em;
 }
 
-h1, h2 {
-    text-align: center;
-}
-
+/* Footer */
 footer {
+    padding: 20px;
     text-align: center;
-    margin-top: 20px;
-    padding: 10px 0;
-    background-color: #f1f1f1;
+    color: var(--muted-color);
+    border-top: 1px solid rgba(0,0,0,0.04);
+    background: transparent;
+}
+
+/* Responsive tweaks */
+@media (max-width: 700px) {
+    nav ul {
+        gap: 0.5rem;
+    }
+    .profile-pic { width: 140px; height: 140px; }
 }
