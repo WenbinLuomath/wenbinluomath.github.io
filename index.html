@@ -5,62 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wenbin Luo - Mathematical Research</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        .home-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .profile-section {
-            text-align: center;
-            margin: 2em 0;
-        }
-        .profile-pic {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin: 20px auto;
-        }
-        .research-interests {
-            max-width: 800px;
-            margin: 2em auto;
-            text-align: left;
-            padding: 20px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-        }
-        .research-interests h2 {
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 0.5em;
-            margin-bottom: 1em;
-        }
-        .advisor-info {
-            margin: 1em 0;
-        }
-        .advisor-name {
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        .news-section {
-            margin: 2em 0;
-        }
-        .news-list {
-            list-style: none;
-            padding: 0;
-        }
-        .news-item {
-            margin: 1em 0;
-            padding: 1em;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-        }
-        .news-date {
-            color: #666;
-            font-size: 0.9em;
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -72,6 +16,7 @@
                 <li><a href="cv.html">CV</a></li>
             </ul>
         </nav>
+        <button id="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false">🌙</button>
     </header>
     <main class="home-container">
         <section class="profile-section">
@@ -88,7 +33,7 @@
                working under the supervision of <span class="advisor-name"><a href="http://faculty.bicmr.pku.edu.cn/~yxy/" target="_blank">Prof. Xinyi Yuan</a></span>.</p>
             
             <div class="advisor-info">
-                <p>I used to stay at Kyoto University for 5 years, where I earned my PhD supervised by <span class="advisor-name"><a href="https://researchmap.jp/agmoriwaki?lang=en" target="_blank">Prof. Atsushi Moriwaki</a></span>.</p>
+                <p>I used to stay at Kyoto University for 5 years, where I earned my PhD supervised by <span class="advisor-name"><a href="https://researchmap.jp/agmoriwaki?lang=en" target="_blank">Prof. A. Moriwaki</a></span>.</p>
             </div>
 
             <h3>Research Interests:</h3>
@@ -114,16 +59,7 @@
         <p>© 2025 Wenbin Luo</p>
         <p>Last updated: 2025-04-30</p>
     </footer>
-    <script>
-    // Get the current page filename
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    
-    // Find the navigation link that matches the current page and add the 'active' class
-    document.querySelectorAll('nav ul li a').forEach(link => {
-        if (link.getAttribute('href') === currentPage) {
-            link.classList.add('active');
-        }
-    });
-</script>
+
+    <script src="theme-toggle.js" defer></script>
 </body>
 </html>
