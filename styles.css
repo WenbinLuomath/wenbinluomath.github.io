@@ -1,71 +1,83 @@
-:root {
-  /* main content colors (will be overridden in dark mode) */
-  --main-bg: #ffffff;
-  --main-text: #222222;
-  --accent: #2a7ae2;
-
-  /* navbar colors (keep these fixed so navbar stays unchanged between modes) */
-  --navbar-bg: #0f4c81;
-  --navbar-text: #ffffff;
-
-  --transition-time: 220ms;
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
-/* Dark mode overrides only the main content variables */
-body.dark-mode {
-  --main-bg: #111111;
-  --main-text: #eaeaea;
-  --accent: #68a0ff;
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
 }
 
-/* Reset / layout */
-* { box-sizing: border-box; }
-html, body { height: 100%; margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
-
-/* NAVBAR (color remains unchanged) */
-.navbar {
-  background: var(--navbar-bg);
-  color: var(--navbar-text);
-  padding: 0.75rem 1rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-.nav-inner { display:flex; align-items:center; justify-content:space-between; gap:1rem; max-width:1100px; margin:0 auto; }
-.brand { margin:0; font-size:1.125rem; }
-.nav-links { list-style:none; margin:0; padding:0; display:flex; gap:1rem; }
-.nav-links a { color: var(--navbar-text); text-decoration:none; opacity:0.95; }
-
-/* MAIN CONTENT (affected by theme) */
-.main-content {
-  background: var(--main-bg);
-  color: var(--main-text);
-  min-height: calc(100vh - 64px);
-  padding: 2rem 1rem;
-  transition: background var(--transition-time) ease, color var(--transition-time) ease;
-  max-width:1100px;
-  margin: 0 auto;
+/* Navigation bar styles */
+nav {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-/* Controls */
-.controls { margin-bottom: 1.25rem; }
-.toggle-btn {
-  background: transparent;
-  border: 2px solid var(--accent);
-  color: var(--main-text);
-  padding: 0.5rem 0.9rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background var(--transition-time), color var(--transition-time), border-color var(--transition-time);
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
 }
-.toggle-btn:hover { background: rgba(0,0,0,0.04); }
-body.dark-mode .toggle-btn { color: var(--main-text); border-color: var(--accent); }
 
-/* Page content */
-.page { background: transparent; padding: 1rem 0; }
-h2 { margin-top: 0; color: var(--main-text); }
+nav ul li {
+    margin: 0;
+    padding: 0 20px;
+}
 
-/* Small utility for contrast on links */
-a { color: var(--accent); }
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 16px;
+    transition: font-weight 0.3s;
+}
+
+/* Style for the active page */
+nav ul li a.active {
+    font-weight: bold;
+}
+
+/* Simple hover effect */
+nav ul li a:hover {
+    font-weight: bold;
+}
+
+/* Responsive Design for Mobile Screens */
+@media (max-width: 600px) {
+    nav ul {
+        flex-direction: column; /* Stack items vertically */
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 10px 0; /* Add space between items */
+    }
+
+    nav ul li a {
+        padding: 10px 20px; /* Increase padding for touch-friendly design */
+    }
+}
+
+.profile-pic {
+    display: block;
+    margin: 20px auto;
+    width: 150px;
+    border-radius: 50%;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px 0;
+    background-color: #f1f1f1;
+}
