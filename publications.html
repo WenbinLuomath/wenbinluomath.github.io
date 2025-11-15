@@ -53,32 +53,33 @@
 @media (max-width: 768px) {
     .year-section {
         margin-top: 1.5em;
-        text-align: center; /* 让年份标题居中 */
+        text-align: center; /* 年份居中 */
         display: block;
-        padding-left: 0;
     }
 
     .year-header {
         font-size: 1.5em;
         color: #2c3e50;
         font-weight: bold;
-        display: inline-block; /* 保持内容包裹 */
-        padding: 0.5em 1em;   /* 上下内边距让横线不贴太近 */
+        display: block; /* 改为块级元素，便于控制布局 */
+        padding: 0.5em 0;
         margin: 0 auto;
         background-color: transparent;
         border: none;
-        text-align: center;
-        width: auto;
+        text-align: center; /* 确保文字居中 */
+        width: fit-content; /* 只包裹内容宽度，方便 ::after 控制 */
+        min-width: 60px;
     }
 
-    /* 在年份下方添加居中的横线分隔符 */
-    .year-section::before {
+    /* 在年份下方插入一条蓝色横线，作为与文章列表的分隔 */
+    .year-header::after {
         content: '';
         display: block;
         width: 60%;
         height: 1px;
         background-color: #3498db;
-        margin: 0.8em auto 0.8em auto; /* 上下留空，居中 */
+        margin: 0.8em auto 0.8em auto; /* 上下留空，居中显示 */
+        clear: both;
     }
 
     .publications-list {
@@ -93,9 +94,10 @@
         padding-left: 0;
         margin-left: 0;
         text-indent: 0;
+        line-height: 1.6;
     }
 
-    /* 确保子元素不继承 flex */
+    /* 防止 flex 布局影响 */
     .year-section > * {
         flex: none;
         display: block;
