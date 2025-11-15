@@ -65,21 +65,10 @@
         padding: 0.5em 0;
         margin: 0 auto;
         background-color: transparent;
-        border: none;
         text-align: center; /* 确保文字居中 */
         width: fit-content; /* 只包裹内容宽度，方便 ::after 控制 */
         min-width: 60px;
-    }
-
-    /* 在年份下方插入一条蓝色横线，作为与文章列表的分隔 */
-    .year-header::after {
-        content: '';
-        display: block;
-        width: 60%;
-        height: 1px;
-        background-color: #3498db;
-        margin: 0.8em auto 0.8em auto; /* 上下留空，居中显示 */
-        clear: both;
+        border-bottom: 2px solid #3498db;
     }
 
     .publications-list {
