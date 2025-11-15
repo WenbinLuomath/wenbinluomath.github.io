@@ -56,19 +56,11 @@
         text-align: center; /* 年份居中 */
         display: block;
     }
-
     .year-header {
-        font-size: 1.5em;
-        color: #2c3e50;
-        font-weight: bold;
-        display: block; /* 改为块级元素，便于控制布局 */
-        padding: 0.5em 0;
-        margin: 0 auto;
-        background-color: transparent;
-        text-align: center; /* 确保文字居中 */
-        width: fit-content; /* 只包裹内容宽度，方便 ::after 控制 */
-        min-width: 60px;
-        border-bottom: 2px solid #3498db;
+                position: relative;
+                margin-bottom: 1em;
+                border-bottom: 2px solid #3498db;
+                padding-bottom: 0.3em;
     }
 
     .publications-list {
