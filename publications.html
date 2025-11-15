@@ -12,79 +12,111 @@
             padding: 20px;
             line-height: 1.6;
         }
+
         .publication {
             margin-bottom: 1.5em;
             padding-left: 2em;
             text-indent: -2em;
         }
-.year-section {
-    display: flex;
-    align-items: flex-start;     /* 改为顶部对齐 */
-    margin-top: 1.5em;
-    gap: 20px;
-}
 
-.year-header {
-    font-size: 1.5em;
-    color: #2c3e50;
-    font-weight: bold;
-    min-width: 60px;
-    text-align: right;           /* 右对齐数字，美观 */
-    padding-right: 10px;
-    /* 完全简洁：无背景、无边框 */
-    background-color: transparent;
-    border: none;
-    margin-top: 0;
-}
+        .year-section {
+            display: flex;
+            align-items: flex-start;
+            margin-top: 1.5em;
+            gap: 20px;
+        }
 
-.publications-list {
-    border-left: 2px solid #3498db;
-    padding-left: 20px;
-    flex: 1;
-}
+        .year-header {
+            font-size: 1.5em;
+            color: #2c3e50;
+            font-weight: bold;
+            min-width: 60px;
+            text-align: right;
+            padding-right: 10px;
+            background-color: transparent;
+            border: none;
+            margin-top: 0;
+        }
 
-.section-header {
-    font-size: 1.8em;
-    color: #2c3e50;
-    margin: 1.5em 0 1em 0;
-    padding-bottom: 0.5em;
-}
+        .publications-list {
+            border-left: 2px solid #3498db;
+            padding-left: 20px;
+            flex: 1;
+        }
 
-@media (max-width: 768px) {
-    .year-section {
-        margin-top: 1.5em;
-        text-align: center; /* 年份居中 */
-        display: block;
-    }
-    .year-header {
+        .section-header {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin: 1.5em 0 1em 0;
+            padding-bottom: 0.5em;
+        }
+
+        .toggle-abstract {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            text-decoration: none;
+            font-style: italic;
+        }
+
+        .toggle-abstract:hover {
+            text-decoration: underline;
+            color: #3498db;
+        }
+
+        .toggle-abstract[data-visible="true"]::after {
+            content: " ▲";
+            font-size: 0.8em;
+        }
+
+        .toggle-abstract[data-visible="false"]::after {
+            content: " ▼";
+            font-size: 0.8em;
+        }
+
+        .abstract-content {
+            display: none;
+            margin-left: 2em;
+            margin-top: 0.5em;
+            padding: 0.8em;
+            border-left: 3px solid #3498db;
+            background-color: #f9f9f9;
+            font-size: 0.95em;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .year-section {
+                margin-top: 1.5em;
+                text-align: center;
+                display: block;
+            }
+            .year-header {
                 position: relative;
                 text-align: center;
                 margin-bottom: 1em;
                 border-bottom: 2px solid #3498db;
                 padding-bottom: 0.3em;
-    }
+            }
+            .publications-list {
+                border-left: none;
+                padding-left: 0;
+                margin-left: 0;
+                text-align: left;
+            }
+            .publication {
+                text-align: left;
+                padding-left: 0;
+                margin-left: 0;
+                text-indent: 0;
+                line-height: 1.6;
+            }
+            .year-section > * {
+                flex: none;
+                display: block;
+            }
+        }
 
-    .publications-list {
-        border-left: none;
-        padding-left: 0;
-        margin-left: 0;
-        text-align: left; /* 文章内容左对齐 */
-    }
-
-    .publication {
-        text-align: left;
-        padding-left: 0;
-        margin-left: 0;
-        text-indent: 0;
-        line-height: 1.6;
-    }
-
-    /* 防止 flex 布局影响 */
-    .year-section > * {
-        flex: none;
-        display: block;
-    }
-}
         .title {
             font-weight: bold;
         }
@@ -105,12 +137,14 @@
         .links a:hover {
             text-decoration: underline;
         }
+
         #loading {
             text-align: center;
             padding: 2em;
             font-style: italic;
             color: #666;
         }
+
         #error {
             color: red;
             padding: 1em;
@@ -118,30 +152,31 @@
             display: none;
             margin: 1em 0;
         }
-            .profile-links {
-        text-align: center;
-        margin: 1em 0 2em 0;
-        padding: 1em;
-        border-bottom: 1px solid #eee;
-    }
-    .profile-links a {
-        display: inline-flex;
-        align-items: center;
-        color: #3498db;
-        text-decoration: none;
-        margin: 0 1em;
-        padding: 0.5em 1em;
-        border-radius: 4px;
-        transition: background-color 0.3s;
-    }
-    .profile-links a:hover {
-        background-color: #f7f9fc;
-        text-decoration: underline;
-    }
-    .profile-links img {
-        height: 20px;
-        margin-right: 8px;
-    }
+
+        .profile-links {
+            text-align: center;
+            margin: 1em 0 2em 0;
+            padding: 1em;
+            border-bottom: 1px solid #eee;
+        }
+        .profile-links a {
+            display: inline-flex;
+            align-items: center;
+            color: #3498db;
+            text-decoration: none;
+            margin: 0 1em;
+            padding: 0.5em 1em;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .profile-links a:hover {
+            background-color: #f7f9fc;
+            text-decoration: underline;
+        }
+        .profile-links img {
+            height: 20px;
+            margin-right: 8px;
+        }
     </style>
 </head>
 <body>
@@ -161,6 +196,7 @@
         <div id="loading">Loading publications...</div>
         <div id="error"></div>
         <div id="publications"></div>
+
         <div class="profile-links">
             <a href="https://mathscinet.ams.org/mathscinet/author?authorId=1621494" target="_blank">
                 <img src="https://www.ams.org/favicon.ico" alt="MathSciNet">
@@ -214,18 +250,16 @@
 
                 let content = '';
                 if (this.entry.type.toLowerCase() === 'unpublished') {
-                    // For unpublished entries, only show author, title, note, and links
+                    // Preprint
                     content = `<div class="publication">
                         <span class="author">${authors}</span>. 
                         "<span class="title">${title}</span>."${note} `;
                     
-                    // Add arXiv link if available
                     if (this.entry.url) {
-                        content += `<span class="links">[<a href="${this.entry.url}" target="_blank">arXiv</a>]</span>`;
+                        content += `<span class="links">[<a href="${this.entry.url}" target="_blank">arXiv</a>]`;
                     }
-                    content += `</div>`;
                 } else {
-                    // For published entries, show full citation
+                    // Published article
                     const journal = this.entry.journal || this.entry.booktitle || '';
                     const volume = this.entry.volume ? `, vol. ${this.entry.volume}` : '';
                     const number = this.entry.number ? `(${this.entry.number})` : '';
@@ -235,8 +269,7 @@
                         <span class="author">${authors}</span>. 
                         "<span class="title">${title}</span>." 
                         <span class="journal">${journal}</span>${volume}${number}${pages}, ${year}${note}.`;
-                    
-                    // Add journal and arXiv links if available
+
                     if (this.entry.journal_url || this.entry.arxiv) {
                         content += '<span class="links">[';
                         if (this.entry.journal_url) {
@@ -246,9 +279,24 @@
                             if (this.entry.journal_url) content += ' ';
                             content += `<a href="${this.entry.arxiv}" target="_blank">arXiv</a>`;
                         }
-                        content += ']</span>';
+                        content += ']';
                     }
-                    content += `</div>`;
+                }
+
+                // Add [abstract] toggle if abstract exists
+                if (this.entry.abstract) {
+                    const safeAbstract = this.entry.abstract
+                        .replace(/"/g, '&quot;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;');
+                    content += ` <span class="links">
+                        <a href="#" class="toggle-abstract" data-visible="false">[abstract]</a>
+                    </span></div>
+                    <div class="abstract-content" style="display: none;">
+                        ${safeAbstract}
+                    </div>`;
+                } else {
+                    content += '</div>'; // Close publication div
                 }
 
                 return content;
@@ -351,18 +399,35 @@
             }
         }
 
-        loadPublications();
+        // Toggle abstract visibility
+        document.addEventListener('DOMContentLoaded', () => {
+            loadPublications();
+
+            // Delegate click events for abstract toggles
+            document.getElementById('publications').addEventListener('click', function(e) {
+                if (e.target.classList.contains('toggle-abstract')) {
+                    e.preventDefault();
+
+                    const link = e.target;
+                    const isVisible = link.getAttribute('data-visible') === 'true';
+                    const abstractContent = link.closest('.publication').nextElementSibling;
+
+                    if (abstractContent && abstractContent.classList.contains('abstract-content')) {
+                        abstractContent.style.display = isVisible ? 'none' : 'block';
+                    }
+
+                    link.setAttribute('data-visible', !isVisible);
+                }
+            });
+
+            // Highlight current page in nav
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('nav ul li a').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        });
     </script>
-    <script>
-    // Get the current page filename
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    
-    // Find the navigation link that matches the current page and add the 'active' class
-    document.querySelectorAll('nav ul li a').forEach(link => {
-        if (link.getAttribute('href') === currentPage) {
-            link.classList.add('active');
-        }
-    });
-</script>
 </body>
 </html>
