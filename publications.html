@@ -52,9 +52,13 @@
 
 @media (max-width: 768px) {
     .year-section {
+        /* 恢复为普通块级元素，取消 flex */
+        display: block;
         padding-left: 0;
     }
+
     .year-header {
+        /* 恢复为正常文档流中的标题 */
         position: relative;
         margin-bottom: 1em;
         border-bottom: 2px solid #3498db;
@@ -65,11 +69,19 @@
         text-align: left;
         min-width: auto;
         width: auto;
+        background: transparent;
+        float: none; /* 防止意外浮动 */
     }
+
     .publications-list {
         border-left: none;
         padding-left: 0;
         margin-left: 0;
+    }
+
+    /* 额外：防止 flex 遗留影响 */
+    .year-section > * {
+        flex: none;
     }
 }
         .title {
