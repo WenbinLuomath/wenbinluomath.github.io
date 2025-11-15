@@ -19,7 +19,7 @@
         }
 .year-section {
     display: flex;
-    align-items: center;
+    align-items: flex-start;     /* 改为顶部对齐 */
     margin-top: 1.5em;
     gap: 20px;
 }
@@ -29,11 +29,12 @@
     color: #2c3e50;
     font-weight: bold;
     min-width: 60px;
-    text-align: center;
-    padding: 10px;
-    background-color: #f0f5ff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: right;           /* 右对齐数字，美观 */
+    padding-right: 10px;
+    /* 完全简洁：无背景、无边框 */
+    background-color: transparent;
+    border: none;
+    margin-top: 0;
 }
 
 .publications-list {
@@ -51,22 +52,24 @@
 
 @media (max-width: 768px) {
     .year-section {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5em;
+        padding-left: 0;
     }
-
     .year-header {
+        position: relative;
+        margin-bottom: 1em;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 0.3em;
+        font-size: 1.5em;
+        color: #2c3e50;
+        font-weight: bold;
+        text-align: left;
         min-width: auto;
-        width: 100%;
-        padding: 0.5em;
-        background-color: #e3f2fd;
-        border-radius: 4px;
+        width: auto;
     }
-
     .publications-list {
         border-left: none;
         padding-left: 0;
+        margin-left: 0;
     }
 }
         .title {
