@@ -52,25 +52,20 @@
 
 @media (max-width: 768px) {
     .year-section {
-        /* 恢复为普通块级元素，取消 flex */
-        display: block;
         padding-left: 0;
+        text-align: center; /* 可选：确保容器也居中 */
     }
 
     .year-header {
-        /* 恢复为正常文档流中的标题 */
         position: relative;
-        margin-bottom: 1em;
-        border-bottom: 2px solid #3498db;
-        padding-bottom: 0.3em;
+        margin: 1em auto 1em auto; /* 上下间距，左右自动居中 */
         font-size: 1.5em;
         color: #2c3e50;
         font-weight: bold;
-        text-align: left;
-        min-width: auto;
-        width: auto;
-        background: transparent;
-        float: none; /* 防止意外浮动 */
+        display: inline-block;     /* 关键：让 border-bottom 包裹文字 */
+        padding-bottom: 0.3em;
+        border-bottom: 2px solid #3498db;
+        width: auto;               /* 不占满全宽 */
     }
 
     .publications-list {
