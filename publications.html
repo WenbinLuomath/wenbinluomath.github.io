@@ -53,48 +53,49 @@
 @media (max-width: 768px) {
     .year-section {
         margin-top: 1.5em;
-        text-align: left; /* 所有内容左对齐 */
-        display: block;   /* 取消 flex 布局 */
+        text-align: center; /* 让年份标题居中 */
+        display: block;
+        padding-left: 0;
     }
 
     .year-header {
         font-size: 1.5em;
         color: #2c3e50;
         font-weight: bold;
-        display: block;
-        padding: 0.5em 0;
-        margin: 0 0 0.5em 0;
-        text-align: left; /* 左对齐文字 */
-        border: none;     /* 移除原来的底部边框 */
+        display: inline-block; /* 保持内容包裹 */
+        padding: 0.5em 1em;   /* 上下内边距让横线不贴太近 */
+        margin: 0 auto;
         background-color: transparent;
+        border: none;
+        text-align: center;
         width: auto;
     }
 
-    /* 添加横线分隔符 */
+    /* 在年份下方添加居中的横线分隔符 */
     .year-section::before {
         content: '';
         display: block;
+        width: 60%;
         height: 1px;
         background-color: #3498db;
-        margin: 0.5em 0;
-        width: 100%;
+        margin: 0.8em auto 0.8em auto; /* 上下留空，居中 */
     }
 
     .publications-list {
         border-left: none;
         padding-left: 0;
         margin-left: 0;
-        text-align: left;
+        text-align: left; /* 文章内容左对齐 */
     }
 
-    /* 确保 publication 条目正常左对齐，保留悬挂缩进 */
     .publication {
+        text-align: left;
         padding-left: 0;
-        text-indent: 0;
         margin-left: 0;
+        text-indent: 0;
     }
 
-    /* 防止 flex 影响 */
+    /* 确保子元素不继承 flex */
     .year-section > * {
         flex: none;
         display: block;
