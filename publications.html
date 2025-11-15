@@ -52,31 +52,52 @@
 
 @media (max-width: 768px) {
     .year-section {
-        padding-left: 0;
-        text-align: center; /* 可选：确保容器也居中 */
+        margin-top: 1.5em;
+        text-align: left; /* 所有内容左对齐 */
+        display: block;   /* 取消 flex 布局 */
     }
 
     .year-header {
-        position: relative;
-        margin: 1em auto 1em auto; /* 上下间距，左右自动居中 */
         font-size: 1.5em;
         color: #2c3e50;
         font-weight: bold;
-        display: inline-block;     /* 关键：让 border-bottom 包裹文字 */
-        padding-bottom: 0.3em;
-        border-bottom: 2px solid #3498db;
-        width: auto;               /* 不占满全宽 */
+        display: block;
+        padding: 0.5em 0;
+        margin: 0 0 0.5em 0;
+        text-align: left; /* 左对齐文字 */
+        border: none;     /* 移除原来的底部边框 */
+        background-color: transparent;
+        width: auto;
+    }
+
+    /* 添加横线分隔符 */
+    .year-section::before {
+        content: '';
+        display: block;
+        height: 1px;
+        background-color: #3498db;
+        margin: 0.5em 0;
+        width: 100%;
     }
 
     .publications-list {
         border-left: none;
         padding-left: 0;
         margin-left: 0;
+        text-align: left;
     }
 
-    /* 额外：防止 flex 遗留影响 */
+    /* 确保 publication 条目正常左对齐，保留悬挂缩进 */
+    .publication {
+        padding-left: 0;
+        text-indent: 0;
+        margin-left: 0;
+    }
+
+    /* 防止 flex 影响 */
     .year-section > * {
         flex: none;
+        display: block;
     }
 }
         .title {
