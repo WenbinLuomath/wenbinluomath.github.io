@@ -216,92 +216,95 @@
 
     <script>
         class Publication {
-            constructor(entry) {
-                this.entry = entry;
-            }
+    constructor(entry) {
+        this.entry = entry;
+    }
 
-            formatAuthors(authorString) {
-                if (!authorString) return '';
-                return authorString.split(' and ')
-                    .map(author => {
-                        const parts = author.split(', ');
-                        let formattedName;
-                        if (parts.length === 2) {
-                            formattedName = `${parts[1]} ${parts[0]}`;
-                        } else {
-                            formattedName = author;
-                        }
-                        if (formattedName === 'Wenbin Luo' || 
-                            formattedName === 'Luo, Wenbin' ||
-                            author === 'Wenbin Luo' || 
-                            author === 'Luo, Wenbin') {
-                            return `<strong>Wenbin Luo</strong>`;
-                        }
-                        return formattedName;
-                    })
-                    .join(', ');
-            }
-
-            toString() {
-                const authors = this.formatAuthors(this.entry.author);
-                const title = this.entry.title.replace(/[{}]/g, '');
-                const year = this.entry.year;
-                const note = this.entry.note ? ` (${this.entry.note})` : '';
-
-                let content = '';
-                if (this.entry.type.toLowerCase() === 'unpublished') {
-                    // Preprint
-                    content = `<div class="publication">
-                        <span class="author">${authors}</span>. 
-                        "<span class="title">${title}</span>."${note} `;
-                    
-                    if (this.entry.url) {
-                        content += `<span class="links">[<a href="${this.entry.url}" target="_blank">arXiv</a>]`;
-                    }
+    formatAuthors(authorString) {
+        if (!authorString) return '';
+        return authorString.split(' and ')
+            .map(author => {
+                const parts = author.split(', ');
+                let formattedName;
+                if (parts.length === 2) {
+                    formattedName = `${parts[1]} ${parts[0]}`;
                 } else {
-                    // Published article
-                    const journal = this.entry.journal || this.entry.booktitle || '';
-                    const volume = this.entry.volume ? `, vol. ${this.entry.volume}` : '';
-                    const number = this.entry.number ? `(${this.entry.number})` : '';
-                    const pages = this.entry.pages ? `, pp. ${this.entry.pages}` : '';
-
-                    content = `<div class="publication">
-                        <span class="author">${authors}</span>. 
-                        "<span class="title">${title}</span>." 
-                        <span class="journal">${journal}</span>${volume}${number}${pages}, ${year}${note}.`;
-
-                    if (this.entry.journal_url || this.entry.arxiv) {
-                        content += '<span class="links">[';
-                        if (this.entry.journal_url) {
-                            content += `<a href="${this.entry.journal_url}" target="_blank">journal</a>`;
-                        }
-                        if (this.entry.arxiv) {
-                            if (this.entry.journal_url) content += ' ';
-                            content += `<a href="${this.entry.arxiv}" target="_blank">arXiv</a>`;
-                        }
-                        content += ']';
-                    }
+                    formattedName = author;
                 }
-
-                // Add [abstract] toggle if abstract exists
-                if (this.entry.abstract) {
-                    const safeAbstract = this.entry.abstract
-                        .replace(/"/g, '&quot;')
-                        .replace(/</g, '&lt;')
-                        .replace(/>/g, '&gt;');
-                    content += ` <span class="links">
-                        <a href="#" class="toggle-abstract" data-visible="false">[abstract]</a>
-                    </span></div>
-                    <div class="abstract-content" style="display: none;">
-                        ${safeAbstract}
-                    </div>`;
-                } else {
-                    content += '</div>'; // Close publication div
+                if (formattedName === 'Wenbin Luo' || 
+                    formattedName === 'Luo, Wenbin' ||
+                    author === 'Wenbin Luo' || 
+                    author === 'Luo, Wenbin') {
+                    return `<strong>Wenbin Luo</strong>`;
                 }
+                return formattedName;
+            })
+            .join(', ');
+    }
 
-                return content;
+    toString() {
+        const authors = this.formatAuthors(this.entry.author);
+        const title = this.entry.title.replace(/[{}]/g, '');
+        const year = this.entry.year;
+        const note = this.entry.note ? ` (${this.entry.note})` : '';
+
+        let content = '';
+        if (this.entry.type.toLowerCase() === 'unpublished') {
+            // Preprint
+            content = `<div class="publication">
+                <span class="author">${authors}</span>. 
+                "<span class="title">${title}</span>."${note} `;
+            
+            if (this.entry.url) {
+                content += `<span class="links">[<a href="${this.entry.url}" target="_blank">arXiv</a>]`;
+            }
+        } else {
+            // Published article
+            const journal = this.entry.journal || this.entry.booktitle || '';
+            const volume = this.entry.volume ? `, vol. ${this.entry.volume}` : '';
+            const number = this.entry.number ? `(${this.entry.number})` : '';
+            const pages = this.entry.pages ? `, pp. ${this.entry.pages}` : '';
+
+            content = `<div class="publication">
+                <span class="author">${authors}</span>. 
+                "<span class="title">${title}</span>." 
+                <span class="journal">${journal}</span>${volume}${number}${pages}, ${year}${note}.`;
+
+            if (this.entry.journal_url || this.entry.arxiv) {
+                content += '<span class="links">[';
+                if (this.entry.journal_url) {
+                    content += `<a href="${this.entry.journal_url}" target="_blank">journal</a>`;
+                }
+                if (this.entry.arxiv) {
+                    if (this.entry.journal_url) content += ' ';
+                    content += `<a href="${this.entry.arxiv}" target="_blank">arXiv</a>`;
+                }
+                content += ']';
             }
         }
+
+        // Add [abstract] toggle if abstract exists
+        if (this.entry.abstract) {
+            const safeAbstract = this.entry.abstract
+                .replace(/"/g, '&quot;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+            content += ` <span class="links">
+                <a href="#" class="toggle-abstract" data-visible="false">[abstract]</a>
+                ${this.entry.erratum ? `<a href="${this.entry.erratum}" target="_blank">[erratum]</a>` : ''}
+            </span></div>
+            <div class="abstract-content" style="display: none;">
+                ${safeAbstract}
+            </div>`;
+        } else {
+            content += this.entry.erratum ? 
+                `<span class="links"><a href="${this.entry.erratum}" target="_blank">[erratum]</a></span></div>` : 
+                '</div>';
+        }
+
+        return content;
+    }
+}
 
         class BibtexParser {
             parse(text) {
